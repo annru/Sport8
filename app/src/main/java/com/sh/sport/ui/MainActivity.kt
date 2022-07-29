@@ -144,7 +144,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
         jsonObject.put("orderid", orderid)
         jsonObject.put("method", method)
         jsonObject.put("nonce", nonce)
-        val treeMap = TreeMap<Any, Any>()
+        val treeMap = TreeMap<String, String>()
         for (str in jsonObject.keys()) {
             treeMap[str] = jsonObject.getString(str)
         }
