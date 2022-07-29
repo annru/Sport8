@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context=".ui.MainActivity">
+
+        <TextClock
+            android:id="@+id/currTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format24Hour="HH:mm:ss"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/accountInfoTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户信息"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currTimeTv" />
+
+        <TextView
+            android:id="@+id/accountInfoValueTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accountInfoTitleTv" />
+
+        <TextView
+            android:id="@+id/orderDateTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预定日期"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accountInfoValueTv" />
+
+        <TextView
+            android:id="@+id/orderDateValueTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="2022-07-29"
+            app:layout_constraintStart_toEndOf="@id/orderDateTitleTv"
+            app:layout_constraintTop_toBottomOf="@id/accountInfoValueTv" />
+
+        <TextView
+            android:id="@+id/orderTimeTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间段"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderDateTitleTv" />
+
+        <CheckBox
+            android:id="@+id/time7_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="7~8点"
+            app:layout_constraintBottom_toBottomOf="@id/orderTimeTitleTv"
+            app:layout_constraintStart_toEndOf="@id/orderTimeTitleTv"
+            app:layout_constraintTop_toTopOf="@id/orderTimeTitleTv" />
+
+        <CheckBox
+            android:id="@+id/time8_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="8~9点"
+            app:layout_constraintBottom_toBottomOf="@id/orderTimeTitleTv"
+            app:layout_constraintStart_toEndOf="@id/time7_8"
+            app:layout_constraintTop_toTopOf="@id/orderTimeTitleTv" />
+
+        <CheckBox
+            android:id="@+id/time9_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="9~10点"
+            app:layout_constraintBottom_toBottomOf="@id/orderTimeTitleTv"
+            app:layout_constraintStart_toEndOf="@id/time8_9"
+            app:layout_constraintTop_toTopOf="@id/orderTimeTitleTv" />
+
+        <Button
+            android:id="@+id/switchAccountBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换账号"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/accountInfoTitleTv" />
+
+        <Button
+            android:id="@+id/startRequestBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="预定"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderTimeTitleTv" />
+
+        <Button
+            android:id="@+id/clearLogBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清除日志"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/logRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/startRequestBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
