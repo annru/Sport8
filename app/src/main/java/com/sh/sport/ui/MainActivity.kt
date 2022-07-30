@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.fastjson.JSONArray
+import com.alibaba.fastjson.JSONObject
+//import com.alibaba.fastjson.JSONObject
 import com.orhanobut.logger.Logger
 import com.sh.sport.R
 import com.sh.sport.api.request.OrderItem
 import com.sh.sport.api.request.SubmitOrderDTO
 import com.sh.sport.base.ui.BaseActivity
-import com.sh.sport.base.utils.MD5Util
-import com.sh.sport.base.utils.MD5Util.Companion.getMD5
+import com.sh.sport.base.utils.MD5UtilKt
 import com.sh.sport.base.viewmodel.createViewModel
 import com.sh.sport.constant.Sport8Preferences
 import com.sh.sport.databinding.ActivityMainBinding
+import com.sh.sport.utils.SignUtils
 import com.sh.sport.viewmodel.SportViewModel
-import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.LinkedHashMap
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
@@ -52,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
         viewBinding.time89.setOnCheckedChangeListener(this)
         viewBinding.time910.setOnCheckedChangeListener(this)
 
-        orderList.add(OrderItem("18", "19"))
+        orderList.add(OrderItem(18, "19"))
 
     }
 
@@ -72,7 +75,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
     private val method = "android"
     private val nonce = "android"
     private fun requestSubmitOrder() {
-        val sign = getParamsSign()
+//        val sign = getParamsSign()
+//         val sign = getTestSign2()
+        val sign = sortMapSign()
         val params = SubmitOrderDTO(
             biz = biz,
             date = date,
@@ -87,6 +92,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
 //        viewModel.submitOrder(params)
     }
 
+    private fun sortMapSign(): String {
+        val jsonObject = JSONObject(LinkedHashMap())
+        jsonObject.put("biz", biz)
+        jsonObject.put("userid", userid)
+        jsonObject.put("date", date)
+        jsonObject.put("stadiumid", stadiumid)
+        jsonObject.put("orderid", orderid)
+
+        val orderListArray = JSONArray()
+        val orderListJson = JSONObject()
+        orderListJson.put("fieldid","513")
+        orderListJson.put("startTime","18")
+        orderListJson.put("endTime","19")
+        orderListArray.add(orderListJson)
+        jsonObject.put("orderList", orderListArray.toJSONString())
+        Logger.i("打印json====${jsonObject.toJSONString()}")
+        val sign = SignUtils.sortedMapSign(jsonObject)
+//        val  = sortedMap["sign"]
+        Logger.i("sign3======$sign")
+        return sign
+
+    }
+
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.startRequestBtn -> {
@@ -99,21 +127,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
         when (p0?.id) {
             R.id.time7_8 -> {
                 if (p1)
-                    orderList.add(OrderItem("19", "20"))
+                    orderList.add(OrderItem(19, "20"))
                 else
-                    orderList.removeIf { it.startTime == "19" }
+                    orderList.removeIf { it.startTime == 19 }
             }
             R.id.time8_9 -> {
                 if (p1)
-                    orderList.add(OrderItem("20", "21"))
+                    orderList.add(OrderItem(20, "21"))
                 else
-                    orderList.removeIf { it.startTime == "20" }
+                    orderList.removeIf { it.startTime == 20 }
             }
             R.id.time9_10 -> {
                 if (p1)
-                    orderList.add(OrderItem("21", "22"))
+                    orderList.add(OrderItem(21, "22"))
                 else
-                    orderList.removeIf { it.startTime == "21" }
+                    orderList.removeIf { it.startTime == 21 }
             }
         }
         Logger.i("订单列表=====$orderList")
@@ -145,7 +173,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
         jsonObject.put("method", method)
         jsonObject.put("nonce", nonce)
         val treeMap = TreeMap<String, String>()
-        for (str in jsonObject.keys()) {
+        for (str in jsonObject.keys) {
             treeMap[str] = jsonObject.getString(str)
         }
         val sb = StringBuilder()
@@ -163,7 +191,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener,
         return sign
     }
 
+    private fun getTestSign2(): String {
+        val jsonObject = JSONObject()
+        jsonObject.put("biz", biz)
+        jsonObject.put("userid", userid)
+        jsonObject.put("date", date)
+        jsonObject.put("stadiumid", stadiumid)
+        jsonObject.put("orderid", orderid)
+//        jsonObject.put("method", method)
+//        jsonObject.put("nonce", nonce)
+//        val sign = SignUtils.sortedMapSign2(jsonObject)
+        return "sign"
+    }
+
     private fun getMD5Code(paramString: String): String {
-        return MD5Util.getMD5Code(paramString)
+        return MD5UtilKt.getMD5Code(paramString)
     }
 }

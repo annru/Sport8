@@ -7,6 +7,7 @@ import com.google.gson.JsonElement
 import com.orhanobut.logger.Logger
 import com.sh.sport.base.AppContext
 import com.sh.sport.base.api.interceptor.HostInterceptor
+//import com.sh.sport.base.api.interceptor.HostInterceptor
 import com.sh.sport.base.api.interceptor.HttpLogInterceptor
 import com.sh.sport.base.event.LoggerEvent
 import com.sh.sport.base.event.LoggerEventInfo
@@ -46,7 +47,7 @@ open class BaseNet {
                 .readTimeout(readTimeOut, TimeUnit.SECONDS)
                 .connectTimeout(connectTimeout, TimeUnit.SECONDS)
                 .writeTimeout(writeTimeout, TimeUnit.SECONDS)
-                .pingInterval(pingInterval, TimeUnit.SECONDS)
+//                .pingInterval(pingInterval, TimeUnit.SECONDS)
                 .addInterceptor(HostInterceptor())
                 .addInterceptor(HttpLogInterceptor(object : HttpLogInterceptor.Logger {
                     override fun log(title: String?, message: String) {

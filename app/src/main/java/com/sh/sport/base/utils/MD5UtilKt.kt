@@ -4,7 +4,7 @@ import okhttp3.internal.and
 import java.math.BigInteger
 import java.security.MessageDigest
 
-class MD5Util {
+class MD5UtilKt {
 
     companion object {
         private val strDigits =

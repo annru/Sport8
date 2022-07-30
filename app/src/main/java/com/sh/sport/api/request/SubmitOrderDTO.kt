@@ -14,7 +14,7 @@ data class SubmitOrderDTO(
 
 
 data class OrderItem(
-    val startTime: String,
+    val startTime: Int,
     val endTime: String,
     val fieldid: String = "513"
 )
